@@ -1,6 +1,6 @@
 ## Unit 7 — Issue selection
 
-**Issue link:** [Issue Link][(https://github.com/codepath/pathreview-ai201-fa26-howard/issues/26)]
+**Issue link:** [Issue Link](https://github.com/codepath/pathreview-ai201-fa26-howard/issues/26)
 
 **Issue title:** Add a safety event count to the health check endpoint
  
@@ -104,7 +104,7 @@ Once you've checked all boxes: comment on the issue, add it to the cohort ledger
 
 ## Unit 8 — Reproduction & solution planning
 
-**Reproduction commit link:** [link to commit documenting the reproduced issue]
+**Reproduction commit link:** [link to commit documenting the reproduced issue](https://github.com/codepath/pathreview-ai201-fa26-howard/commit/f309116322b948f32245fbfb7921f9e947997232)
 
 **Reproduction summary:**
 [1–2 sentences: How did you reproduce the issue? What did you observe?]
@@ -123,7 +123,7 @@ safety_events_last_hour is still 0
 
 This is where our bug lies. 
 
-**PLAN.md link:** [link to PLAN.md in your fork][]
+**PLAN.md link:** [link to PLAN.md in your fork](https://github.com/Dani-risingBW/pathreview-ai201-fa26-howard/blob/feat/26-safety-event-health-check/PLAN.md)
 
 **Walkthrough video (recommended):** [link to your Loom video, ≤2 min — recommended, not graded]
 
