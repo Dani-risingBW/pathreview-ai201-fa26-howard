@@ -1,6 +1,6 @@
 ## Unit 7 — Issue selection
 
-**Issue link:** [[Issue Link](https://github.com/codepath/pathreview-ai201-fa26-howard/issues/26)]
+**Issue link:** [Issue Link][(https://github.com/codepath/pathreview-ai201-fa26-howard/issues/26)]
 
 **Issue title:** Add a safety event count to the health check endpoint
  
@@ -10,7 +10,7 @@
 **Problem summary:**
 The issue seems to be that there is an existing function that records the count of safety events. I would have to connect that actually to the safety layer so that it gets implemented into the program and reports the safety event count. I must look through the files: api/routes/health.py and safety/monitoring.py for connecting these two areas together. 
 
-**Branch name:** feat/26-safetly-event-health-check
+**Branch name:** feat/26-safety-event-health-check
 
 **Setup confirmation:** [X] App runs locally at localhost:5173
 
@@ -101,3 +101,31 @@ Unchecked item in Part 2: Consider a lower tier. There's no shame in a well-exec
 Unchecked item in Part 3: Do one more codebase exploration session (see the codebase navigation guide) before committing.
 Unchecked item in Part 4: Choose a different issue, or negotiate the timeline with your instructor.
 Once you've checked all boxes: comment on the issue, add it to the cohort ledger, and start Unit 7.
+
+## Unit 8 — Reproduction & solution planning
+
+**Reproduction commit link:** [link to commit documenting the reproduced issue]
+
+**Reproduction summary:**
+[1–2 sentences: How did you reproduce the issue? What did you observe?]
+When running this command `curl http://localhost:8000/health`
+safety_events_last_hour is 0
+
+Then I incremented the counter by hand with this command 
+`docker compose exec redis redis-cli INCR safety:events:pii_detected`
+C:\Users\Nkiru\AI201\fall26pathreview\pathreview-ai201-fa26-howard\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+(integer) 2
+
+So safety_events_last_hour should be 2
+
+But running the curl command again:
+safety_events_last_hour is still 0
+
+This is where our bug lies. 
+
+**PLAN.md link:** [link to PLAN.md in your fork][]
+
+**Walkthrough video (recommended):** [link to your Loom video, ≤2 min — recommended, not graded]
+
+**Blockers or open questions:**
+[Anything you're still uncertain about going into Unit 9, or leave blank]
