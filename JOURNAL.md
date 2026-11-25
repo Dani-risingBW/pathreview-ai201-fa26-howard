@@ -147,16 +147,20 @@ None
 
 ### Check-in 2 (end of week)
 
-**PR link:** [link to your submitted pull request]
+**PR link:** [PR #110](https://github.com/codepath/pathreview-ai201-fa26-howard/pull/110)
 
 **Branch:** feat/26-safety-event-health-check
 
 **What you built:**
-[1–3 sentences summarizing what your fix does and how it works]
+The `/health` endpoint now reports the real number of safety events instead of always saying 0. It creates a `SafetyMonitor` from the Redis client and adds up `get_event_count()` for every event type in `VALID_EVENT_TYPES`, but only when Redis is healthy. I also fixed the Redis connection to use `settings.redis_url`, since `redis_host` didn't exist (issue #62), and removed #62's mypy suppression from `pyproject.toml`.
 
 **Tests added or updated:**
-[Which test files did you touch? What do they cover?]
+I added `tests/unit/test_health.py`, which uses a mocked Redis and database. It covers four cases:
+- all dependencies healthy
+- Redis down: the endpoint returns a 503 and the safety count stays 0
+- the safety count is summed across all event types
+- `log_event()` increments the right Redis key
 
 **Self-review confirmation:** [X] make check passes  [X] make test-unit passes
 
-**Draft PR feedback received from:** [name or Slack handle, or "none"]
+**Draft PR feedback received from:** none
