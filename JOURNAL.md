@@ -164,3 +164,35 @@ I added `tests/unit/test_health.py`, which uses a mocked Redis and database. It 
 **Self-review confirmation:** [X] make check passes  [X] make test-unit passes
 
 **Draft PR feedback received from:** none
+
+
+## Unit 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [X] No — still awaiting review
+
+**Summary of feedback:**
+No review has come in yet. PR #110 is open with all five CI checks passing (lint, typecheck, test-unit, test-integration, frontend), and there are no reviews or comments so far.
+
+**How you responded:**
+
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+Getting the environment running was harder than the fix itself. Docker Desktop kept not running or not being on my PATH in Git Bash, so `docker` was "command not found." My other projects' Vite servers were using port 5173, so for a while localhost:5173 showed a different app. The Postgres and Redis containers also stopped whenever Docker restarted. Writing the tests was harder than I expected too. I had to learn that `health_check()` *raises* an `HTTPException` when something is unhealthy instead of returning a value, so the test needed `pytest.raises`. I also had to learn that a mock with `return_value = "5"` answers every key, so five event types added up to 25, not 5.
+
+**What did you learn about working in a large codebase?**
+A small issue can be connected to other issues. My fix for #26 needed a working Redis client, and that turned out to be a separate seeded bug (#62), which I only found because `pyproject.toml` had a comment about it. I learned to read the contributing rules: removing a bug's mypy suppression or xfail marker is part of fixing it, and baseline cleanups belong in their own PR. I also learned to keep my scope narrow. The Postgres `SELECT 1` bug (#61) was right next to my code, but I left it alone and explained it in my PR instead of fixing everything I saw.
+
+**How did AI tools help — and where did they fall short?**
+AI was most useful for explaining code I didn't understand yet. Examples were how `redis_url` gets loaded from `.env`, why I couldn't import a method like `get_event_count` directly, and what each test failure actually meant. It also helped with setup, linting, and writing a PR description with real before/after output. It fell short in a few places. At one point it said the app was running on 5173 when another app had taken the port, and it had to correct itself. The servers it started in the background kept getting killed, so I ran commands like the `redis-cli` reproduction myself. It also couldn't see my course rubric, so decisions about scope, what goes in the PR, and opening it as final instead of a draft had to come from me.
+
+**What would you do differently if you started over?**
+I would read `pyproject.toml` and CONTRIBUTING.md during planning, so I'd have found the overlap with #62 in my PLAN.md instead of right before opening the PR. I would make sure Docker was installed, running, and on my PATH before starting anything else. I would also write the failing test first and use it as my reproduction commit, so my git history shows the bug failing and then passing.
+
+**What are you most proud of from this module?**
+Reproducing the bug myself. I recorded safety events directly in Redis with `redis-cli INCR`, then showed that `/health` still reported 0. After the fix, the same data showed `"safety_events_last_hour":3` and Redis reported as healthy. That gave me clear proof the bug was real and that my change fixed it.
